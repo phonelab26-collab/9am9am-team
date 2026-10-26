@@ -369,7 +369,7 @@ class ConfigStore:
     def workspace(self) -> str:
         """Dernier dossier de travail choisi (« » = le dossier du logiciel)."""
         value = self.load().get("workspace")
-        return value.strip() if isinstance(value, str) else ""
+        return value.strip("\r\n") if isinstance(value, str) else ""  # une espace finale fait partie du nom
 
     def ceo_effort(self) -> str:
         """Effort demandé au CEO (faible…ultracode), « » = défaut de Claude Code."""

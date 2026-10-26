@@ -52,6 +52,64 @@ class ValidateWorkspaceTest(unittest.TestCase):
         self.assertIn("écriture", err)
 
 
+class TrailingSpaceTest(unittest.TestCase):
+    """Un dossier dont le NOM finit par une espace (« distributeur de tampon ») existe bel et bien
+    sur macOS : l'app le cherchait sans cette espace et répondait « introuvable »."""
+
+    def setUp(self):
+        self.base = Path(tempfile.mkdtemp(prefix="orch-wsspace-")).resolve()
+        self.addCleanup(shutil.rmtree, self.base, True)
+        self.odd = self.base / "distributeur de tampon "
+        self.odd.mkdir()
+
+    def test_a_folder_whose_name_ends_with_a_space_is_found(self):
+        self.assertEqual(validate_workspace(str(self.odd)), (self.odd, ""))
+        self.assertEqual(validate_workspace(str(self.odd) + "/"), (self.odd, ""))
+
+    def test_the_exact_name_wins_over_the_stripped_one(self):
+        twin = self.base / "distributeur de tampon"
+        twin.mkdir()
+        self.assertEqual(validate_workspace(str(self.odd))[0], self.odd)
+        self.assertEqual(validate_workspace(str(twin))[0], twin)
+
+    def test_a_stray_space_around_a_typed_path_is_still_tolerated(self):
+        plain = self.base / "projet"
+        plain.mkdir()
+        self.assertEqual(validate_workspace(f"  {plain} \n")[0], plain)
+
+    def test_a_missing_folder_is_quoted_so_a_hidden_space_shows(self):
+        path, err = validate_workspace(str(self.base / "absent "))
+        self.assertIsNone(path)
+        self.assertIn("introuvable", err)
+        self.assertIn(f"« {self.base / 'absent '} »", err)  # deux espaces avant » : la fin du nom se voit
+
+    def test_the_picker_keeps_the_space_of_the_name(self):
+        out = f"{self.odd}/\n"
+        path, err = pick_folder(lambda *a, **k: CmdResult(0, out, ""))
+        self.assertEqual((path, err), (str(self.odd), ""))
+        self.assertEqual(validate_workspace(path)[0], self.odd)
+
+    def test_the_remembered_workspace_keeps_the_space(self):
+        from orch.config import ConfigStore, Paths
+        cfg = ConfigStore(Paths.for_root(self.base / "logiciel"), lambda m: None)
+        cfg.update(workspace=str(self.odd))
+        self.assertEqual(cfg.workspace(), str(self.odd))
+
+    def test_the_app_reopens_on_that_folder_without_complaining(self):
+        from orch.gui_controller import GuiController
+        from orch.config import ConfigStore, Paths
+        root = self.base / "logiciel"
+        root.mkdir()
+        ConfigStore(Paths.for_root(root), lambda m: None).update(workspace=str(self.odd))
+        echoed = []
+        ctl = GuiController(root, dry_run=True, runner=lambda *a, **k: CmdResult(0, "", ""))
+        self.addCleanup(ctl.close, 5)
+        self.assertEqual(ctl.workspace_root, self.odd)
+        ok, err = ctl.switch_workspace(str(self.odd))
+        self.assertEqual((ok, err), (True, ""))
+        self.assertEqual(ctl.workspace_root, self.odd)
+
+
 class PickFolderTest(unittest.TestCase):
     def runner(self, result):
         self.calls = []

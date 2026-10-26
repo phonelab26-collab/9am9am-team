@@ -37,16 +37,26 @@ def _system(path: Path) -> bool:
     return any(text == _key(d) or text.startswith(_key(d) + "/") for d in SYSTEM_DIRS)
 
 
+def _spellings(raw: str) -> list:
+    """Le texte tel quel (hors retours à la ligne), puis sans espaces autour. macOS accepte un nom de
+    dossier qui FINIT par une espace (« distributeur de tampon ») : la retirer d'office le rendait
+    « introuvable » ; une espace parasite autour d'un chemin tapé reste tolérée."""
+    exact, loose = raw.strip("\r\n"), raw.strip()
+    return [exact] if exact == loose else [exact, loose]
+
+
 def validate_workspace(raw: object) -> Tuple[Optional[Path], str]:
     """(dossier résolu, "") ou (None, raison lisible)."""
-    text = raw.strip() if isinstance(raw, str) else ""
+    spellings = _spellings(raw) if isinstance(raw, str) else [""]
+    text = spellings[-1]
     if not text:
         return None, "chemin vide."
     if not text.startswith("/"):
         return None, f"chemin non absolu : {text[:200]}"
+    text = next((s for s in spellings if s.startswith("/") and Path(s).resolve().exists()), spellings[0])
     path = Path(text).resolve()
     if not path.exists():
-        return None, f"dossier introuvable : {path}"
+        return None, f"dossier introuvable : « {path} »"  # guillemets : une espace finale se voit
     if not path.is_dir():
         return None, f"ce n'est pas un dossier : {path}"
     if _too_broad(path):
@@ -100,7 +110,7 @@ def pick_folder(runner: Callable[..., CmdResult] = run_cmd) -> Tuple[Optional[st
             return None, ""
         why = "délai dépassé" if res.timed_out else (res.err.strip() or f"code {res.code}")
         return None, f"sélecteur de dossier indisponible : {why[:300]}"
-    chosen = res.out.strip()
-    if not chosen:
+    chosen = res.out.strip("\r\n")  # jamais les espaces : le nom du dossier peut en finir par une
+    if not chosen.strip():
         return None, "le sélecteur n'a renvoyé aucun dossier."
     return (chosen.rstrip("/") or "/"), ""
