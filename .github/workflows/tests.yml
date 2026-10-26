@@ -1,0 +1,26 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  selftest:
+    # macOS uniquement : le logiciel est conçu pour le Mac (voir « Compatibilité et limites »).
+    runs-on: macos-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.14"]  # 3.9 = python système du Mac ; 3.14 = récent
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Suite de tests (aucun vrai CLI appelé)
+        run: python mini_orchestrateur.py selftest

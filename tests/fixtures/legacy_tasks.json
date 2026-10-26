@@ -1,0 +1,132 @@
+[
+  {
+    "id": 1,
+    "title": "Vérifier le répertoire de travail",
+    "worker": "opencode",
+    "detail": "Lister le contenu de /Users/demo/Documents/9AM9AM-TEAM et vérifier qu'aucun fichier NOTES-DEMO.md n'existe déjà, afin de ne rien écraser par erreur.",
+    "status": "done",
+    "result": "{\"type\":\"step_start\",\"timestamp\":1790330479753,\"sessionID\":\"ses_f27fd1301ffe4t3OqZo2IZq3lS\",\"part\":{\"id\":\"prt_0d8032480001qx4zZPypSCjBcq\",\"messageID\":\"msg_0d802ee35001LXe1OXKssNbNc5\",\"sessionID\":\"ses_f27fd1301ffe4t3OqZo2IZq3lS\",\"type\":\"step-start\"}}\n{\"type\":\"tool_use\",\"timestamp\":1790330480191,\"sessionID\":\"ses_f27fd1301ffe4t3OqZo2IZq3lS\",\"part\":{\"type\":\"tool\",\"tool\":\"bash\",\"callID\":\"call_1f6f9941a327482a96e26a7c\",\"state\":{\"status\":\"completed\",\"input\":{\"command\":\"ls -la /Users/demo/Documents/9AM9AM-TEAM\"},\"output\":\"total 48\\ndrwxr-xr-x@  4 demo  staff    128 Sep 25 07:55 .\\ndrwx------+ 33 demo  staff   1056 Sep 25 07:13 ..\\ndrwxr-xr-x@  3 demo  staff     96 Sep 25 10:01 .mini-orch\\n-rw-r--r--@  1 demo  staff  23674 Sep 25 08:56 mini_orchestrateur.py\\n\",\"metadata\":{\"output\":\"total 48\\ndrwxr-xr-x@  4 demo  staff    128 Sep 25 07:55 .\\ndrwx------+ 33 demo  staff   1056 Sep 25 07:13 ..\\ndrwxr-xr-x@  3 demo  staff     96 Sep 25 10:01 .mini-orch\\n-rw-r--r--@  1 demo  staff  23674 Sep 25 08:56 mini_orchestrateur.py\\n\",\"exit\":0,\"truncated\":false},\"title\":\"ls -la /Users/demo/Documents/9AM9AM-TEAM\",\"time\":{\"start\":1790330480096,\"end\":1790330480189}},\"id\":\"prt_0d803253e0012L0uKRwhCNQU72\",\"sessionID\":\"ses_f27fd1301ffe4t3OqZo2IZq3lS\",\"messageID\":\"msg_0d802ee35001LXe1OXKssNbNc5\"}}\n{\"type\":\"tool_use\",\"timestamp\":1790330480302,\"sessionID\":\"ses_f27fd1301ffe4t3OqZo2IZq3lS\",\"part\":{\"type\":\"tool\",\"tool\":\"glob\",\"callID\":\"call_1111f1912ff5436493f9b0bd\",\"state\":{\"status\":\"completed\",\"input\":{\"pattern\":\"**/NOTES-DEMO.md\"},\"output\":\"No files found\",\"metadata\":{\"count\":0,\"truncated\":false},\"title\":\"Users/demo/Documents/9AM9AM-TEAM\",\"time\":{\"start\":1790330480265,\"end\":1790330480289}},\"id\":\"prt_0d8032627001mn6KT34fNp4OfG\",\"sessionID\":\"ses_f27fd1301ffe4t3OqZo2IZq3lS\",\"messageID\":\"msg_0d802ee35001LXe1OXKssNbNc5\"}}\n{\"type\":\"step_finish\",\"timestamp\":1790330480302,\"sessionID\":\"ses_f27fd1301ffe4t3OqZo2IZq3lS\",\"part\":{\"id\":\"prt_0d80326a30017OVnwCG1aB2jXK\",\"reason\":\"tool-calls\",\"messageID\":\"msg_0d802ee35001LXe1OXKssNbNc5\",\"sessionID\":\"ses_f27fd1301ffe4t3OqZo2IZq3lS\",\"type\":\"step-finish\",\"tokens\":{\"total\":26574,\"input\":10117,\"output\":58,\"reasoning\":15,\"cache\":{\"write\":0,\"read\":16384}},\"cost\":0}}\n{\"type\":\"step_start\",\"timestamp\":1790330485468,\"sessionID\":\"ses_f27fd1301ffe4t3OqZo2IZq3lS\",\"part\":{\"id\":\"prt_0d8033ad6001gMaaPxaNQ1huZE\",\"messageID\":\"msg_0d80326aa001IUZepTY33rNMm2\",\"sessionID\":\"ses_f27fd1301ffe4t3OqZo2IZq3lS\",\"type\":\"step-start\"}}\n{\"type\":\"text\",\"timestamp\":1790330486751,\"sessionID\":\"ses_f27fd1301ffe4t3OqZo2IZq3lS\",\"part\":{\"id\":\"prt_0d8033c2000119JcH6SdwWtxRx\",\"messageID\":\"msg_0d80326aa001IUZepTY33rNMm2\",\"sessionID\":\"ses_f27fd1301ffe4t3OqZo2IZq3lS\",\"type\":\"text\",\"text\":\"Répertoire vide de fichiers Markdown — 2 entrées seulement :\\n\\n- `.mini-orch/` (dossier)\\n- `mini_orchestrateur.py` (23 Ko)\\n\\nAucun `NOTES-DEMO.md` présent (ni dans ce répertoire ni ailleurs dans le workspace). Rien à risquer d'écraser.\",\"time\":{\"start\":1790330485792,\"end\":1790330486734}}}\n{\"type\":\"step_finish\",\"timestamp\":1790330486751,\"sessionID\":\"ses_f27fd1301ffe4t3OqZo2IZq3lS\",\"part\":{\"id\":\"prt_0d8033fd20016uXEo26rxJ9uUI\",\"reason\":\"stop\",\"messageID\":\"msg_0d80326aa001IUZepTY33rNMm2\",\"sessionID\":\"ses_f27fd1301ffe4t3OqZo2IZq3lS\",\"type\":\"step-finish\",\"tokens\":{\"total\":26828,\"input\":229,\"output\":79,\"reasoning\":24,\"cache\":{\"write\":0,\"read\":26496}},\"cost\":0}}",
+    "attempts": 1,
+    "created": "2026-09-25T10:01:04"
+  },
+  {
+    "id": 2,
+    "title": "Rédiger la phrase de bienvenue",
+    "worker": "opencode",
+    "detail": "Choisir une phrase de bienvenue courte et claire en français, par exemple : « Bienvenue dans 9AM9AM-TEAM, la mini-organisation d'agents IA qui démarre la journée à 9h. »",
+    "status": "done",
+    "result": "{\"type\":\"step_start\",\"timestamp\":1790330653099,\"sessionID\":\"ses_f27fab003ffeV6HMOZDU42LES2\",\"part\":{\"id\":\"prt_0d805c9a3001I6pHrvLx7du3iA\",\"messageID\":\"msg_0d8055169001oYM3la4BdRSc5e\",\"sessionID\":\"ses_f27fab003ffeV6HMOZDU42LES2\",\"type\":\"step-start\"}}\n{\"type\":\"text\",\"timestamp\":1790330656748,\"sessionID\":\"ses_f27fab003ffeV6HMOZDU42LES2\",\"part\":{\"id\":\"prt_0d805cfb3001fK8kWx8nxK904y\",\"messageID\":\"msg_0d8055169001oYM3la4BdRSc5e\",\"sessionID\":\"ses_f27fab003ffeV6HMOZDU42LES2\",\"type\":\"text\",\"text\":\"Phrase proposée :\\n\\n> **Bienvenue dans 9AM9AM-TEAM, la mini-organisation d'agents IA qui démarre la journée à 9h.**\\n\\nVariantes si besoin :\\n- « Bienvenue chez 9AM9AM-TEAM : la petite équipe d'agents IA qui démarre à 9h pile. »\\n- « 9AM9AM-TEAM — là où les agents IA commencent la journée à 9h. »\\n\\nPrécisez si elle doit aller quelque part (README, CONTEXT.md, écran d'accueil) et je l'insère.\",\"time\":{\"start\":1790330654643,\"end\":1790330656725}}}\n{\"type\":\"step_finish\",\"timestamp\":1790330656748,\"sessionID\":\"ses_f27fab003ffeV6HMOZDU42LES2\",\"part\":{\"id\":\"prt_0d805d7da001Wc4XYadA3kKBU2\",\"reason\":\"stop\",\"messageID\":\"msg_0d8055169001oYM3la4BdRSc5e\",\"sessionID\":\"ses_f27fab003ffeV6HMOZDU42LES2\",\"type\":\"step-finish\",\"tokens\":{\"total\":26720,\"input\":1929,\"output\":131,\"reasoning\":84,\"cache\":{\"write\":0,\"read\":24576}},\"cost\":0}}",
+    "attempts": 1,
+    "created": "2026-09-25T10:01:04"
+  },
+  {
+    "id": 3,
+    "title": "Créer NOTES-DEMO.md",
+    "worker": "opencode",
+    "detail": "Créer le fichier NOTES-DEMO.md à la racine de /Users/demo/Documents/9AM9AM-TEAM avec un titre de niveau 1 « Notes de démo » suivi de la phrase de bienvenue retenue, sans autre contenu.",
+    "status": "done",
+    "result": "2AzGQOuDO\",\"sessionID\":\"ses_f27fa249fffeNFrn5N1SryiOLm\",\"messageID\":\"msg_0d805dc87001mDMPRqG50U1PZL\"}}\n{\"type\":\"step_finish\",\"timestamp\":1790330673380,\"sessionID\":\"ses_f27fa249fffeNFrn5N1SryiOLm\",\"part\":{\"id\":\"prt_0d80618d7001SDhqWzQUR66hTB\",\"reason\":\"tool-calls\",\"messageID\":\"msg_0d805dc87001mDMPRqG50U1PZL\",\"sessionID\":\"ses_f27fa249fffeNFrn5N1SryiOLm\",\"type\":\"step-finish\",\"tokens\":{\"total\":26626,\"input\":1933,\"output\":75,\"reasoning\":42,\"cache\":{\"write\":0,\"read\":24576}},\"cost\":0}}\n{\"type\":\"step_start\",\"timestamp\":1790330680279,\"sessionID\":\"ses_f27fa249fffeNFrn5N1SryiOLm\",\"part\":{\"id\":\"prt_0d80633d0001Cjm6jnROFp3WRC\",\"messageID\":\"msg_0d80618df001DDkEXdq1qxakbd\",\"sessionID\":\"ses_f27fa249fffeNFrn5N1SryiOLm\",\"type\":\"step-start\"}}\n{\"type\":\"tool_use\",\"timestamp\":1790330683160,\"sessionID\":\"ses_f27fa249fffeNFrn5N1SryiOLm\",\"part\":{\"type\":\"tool\",\"tool\":\"grep\",\"callID\":\"call_bd66581824aa42849d5f8e42\",\"state\":{\"status\":\"completed\",\"input\":{\"path\":\"/Users/demo/Documents/9AM9AM-TEAM/.mini-orch/tasks.json\",\"pattern\":\"retenue|Phrase de bienvenue|phrase retenue\"},\"output\":\"Found 1 matches\\n/Users/demo/Documents/9AM9AM-TEAM/.mini-orch/tasks.json:\\n  Line 26:     \\\"detail\\\": \\\"Créer le fichier NOTES-DEMO.md à la racine de /Users/demo/Documents/9AM9AM-TEAM avec un titre de niveau 1 « Notes de démo » suivi de la phrase de bienvenue retenue, sans autre contenu.\\\",\\n\",\"metadata\":{\"matches\":1,\"truncated\":false},\"title\":\"retenue|Phrase de bienvenue|phrase retenue\",\"time\":{\"start\":1790330683124,\"end\":1790330683147}},\"id\":\"prt_0d8063c67001m6vYaXbDx5CZK7\",\"sessionID\":\"ses_f27fa249fffeNFrn5N1SryiOLm\",\"messageID\":\"msg_0d80618df001DDkEXdq1qxakbd\"}}\n{\"type\":\"step_finish\",\"timestamp\":1790330683160,\"sessionID\":\"ses_f27fa249fffeNFrn5N1SryiOLm\",\"part\":{\"id\":\"prt_0d8063f0d001N1MkXFm6bzeK2I\",\"reason\":\"tool-calls\",\"messageID\":\"msg_0d80618df001DDkEXdq1qxakbd\",\"sessionID\":\"ses_f27fa249fffeNFrn5N1SryiOLm\",\"type\":\"step-finish\",\"tokens\":{\"total\":27796,\"input\":1160,\"output\":54,\"reasoning\":86,\"cache\":{\"write\":0,\"read\":26496}},\"cost\":0}}\n{\"type\":\"step_start\",\"timestamp\":1790330691930,\"sessionID\":\"ses_f27fa249fffeNFrn5N1SryiOLm\",\"part\":{\"id\":\"prt_0d8066152001Fg0O8nRdOl1Z6Z\",\"messageID\":\"msg_0d8063f140018VfZjZxVwLui9q\",\"sessionID\":\"ses_f27fa249fffeNFrn5N1SryiOLm\",\"type\":\"step-start\"}}\n{\"type\":\"tool_use\",\"timestamp\":1790330695107,\"sessionID\":\"ses_f27fa249fffeNFrn5N1SryiOLm\",\"part\":{\"type\":\"tool\",\"tool\":\"write\",\"callID\":\"call_68675854ed414947b3ff5044\",\"state\":{\"status\":\"completed\",\"input\":{\"filePath\":\"/Users/demo/Documents/9AM9AM-TEAM/NOTES-DEMO.md\",\"content\":\"# Notes de démo\\n\\nBienvenue dans 9AM9AM-TEAM, la mini-organisation d'agents IA qui démarre la journée à 9h.\\n\"},\"output\":\"Wrote file successfully.\",\"metadata\":{\"diagnostics\":{},\"filepath\":\"/Users/demo/Documents/9AM9AM-TEAM/NOTES-DEMO.md\",\"exists\":false,\"truncated\":false},\"title\":\"Users/demo/Documents/9AM9AM-TEAM/NOTES-DEMO.md\",\"time\":{\"start\":1790330695081,\"end\":1790330695093}},\"id\":\"prt_0d80662e6001h0FYpLKvZuwNB5\",\"sessionID\":\"ses_f27fa249fffeNFrn5N1SryiOLm\",\"messageID\":\"msg_0d8063f140018VfZjZxVwLui9q\"}}\n{\"type\":\"step_finish\",\"timestamp\":1790330695107,\"sessionID\":\"ses_f27fa249fffeNFrn5N1SryiOLm\",\"part\":{\"id\":\"prt_0d8066db7001MMunhclMf46zAV\",\"reason\":\"tool-calls\",\"messageID\":\"msg_0d8063f140018VfZjZxVwLui9q\",\"sessionID\":\"ses_f27fa249fffeNFrn5N1SryiOLm\",\"type\":\"step-finish\",\"tokens\":{\"total\":28028,\"input\":247,\"output\":79,\"reasoning\":54,\"cache\":{\"write\":0,\"read\":27648}},\"cost\":0}}\n{\"type\":\"step_start\",\"timestamp\":1790330701674,\"sessionID\":\"ses_f27fa249fffeNFrn5N1SryiOLm\",\"part\":{\"id\":\"prt_0d8068742001AqVNfyILXblhTJ\",\"messageID\":\"msg_0d8066dbe001lIFpDYLcQwu3nC\",\"sessionID\":\"ses_f27fa249fffeNFrn5N1SryiOLm\",\"type\":\"step-start\"}}\n{\"type\":\"tool_use\",\"timestamp\":1790330701725,\"sessionID\":\"ses_f27fa249fffeNFrn5N1SryiOLm\",\"part\":{\"type\":\"tool\",\"tool\":\"bash\",\"callID\":\"call_900e3e7ea7ab4813a661950a\",\"state\":{\"status\":\"completed\",\"input\":{\"command\":\"file -I NOTES-DEMO.md && cat NOTES-DEMO.md\",\"workdir\":\"/Users/demo/Documents/9AM",
+    "attempts": 1,
+    "created": "2026-09-25T10:01:04"
+  },
+  {
+    "id": 4,
+    "title": "Vérifier le contenu du fichier",
+    "worker": "opencode",
+    "detail": "Relire NOTES-DEMO.md et confirmer que le fichier existe, qu'il est encodé en UTF-8, et qu'il contient bien la phrase de bienvenue et rien d'autre que le titre et cette phrase.",
+    "status": "done",
+    "result": "[session ses_f27eae64effegKrGxE4mjKQrgu]\nUtilisateur, vérification OK :\n\n- **Existe** : `NOTES-DEMO.md`, 111 octets\n- **UTF-8** : `charset=utf-8`, sans BOM (commence par `# `), accents `é`/`à` valides (`c3a9`/`c3a0`)\n- **Contenu** : exactement 2 blocs — titre `# Notes de démo` + phrase de bienvenue, rien d'autre (fin de fichier avec un seul `\\n`)",
+    "attempts": 1,
+    "created": "2026-09-25T10:01:04"
+  },
+  {
+    "id": 5,
+    "title": "Définir le contenu du plan de test",
+    "worker": "opencode",
+    "detail": "Décider de la structure de TEST-PLAN.md : objectif du test réel, périmètre (création d'un fichier Markdown par un worker opencode), critères de succès et prérequis. Noter ces éléments en brouillon pour la rédaction.",
+    "status": "done",
+    "result": "[session ses_f278feb06ffeN89lDBXQ9dDWif]\nVoici le brouillon pour `TEST-PLAN.md` :\n\n## Objectif du test réel\nValider la boucle complète **sans `--dry-run`** : le CEO découpe → un worker **opencode** exécute réellement une tâche → l'état est persisté. Preuve qu'un agent IA crée un vrai fichier dans le workspace.\n\n## Périmètre\n- **Inclus** : création d'1 fichier Markdown par le worker `opencode` (nom unique, ex. `TEST-RESULT.md`), via `plan` + `run --worker opencode`, vérification `status`.\n- **Exclu** : workers autoclaw/cline, la GUI, le selftest dry-run, la supervision CEO (bonus si `tick` utilisé).\n\n## Critères de succès\n1. `TEST-RESULT.md` existe, non vide, contient le titre demandé.\n2. `tasks.json` : statut `done`, `attempts == 1`, `result` non vide.\n3. Aucun fichier préexistant modifié/écrasé.\n4. ⚠️ Point technique : `cmd_run` (mini_orchestrateur.py:406) ne décide `done` que sur le **code retour 0** — le contenu du fichier doit donc être vérifié **manuellement**, il n'est pas prouvé par le statut.\n\n## Prérequis\n- `opencode` accessible (`MINI_ORCH_OPENCODE` sinon), `claude` si CEO réel appelé.\n- Modèle du `.mini-orch/config.json` vivant (`dead_models` non actif) — sinon repli auto.\n- Sauvegarde de `.mini-orch/tasks.json` avant test (l'état est partagé avec les démos).\n- Workspace : le worker tourne dans le cwd courant.\n\n## Procédure (à détailler à la rédaction)\n`backup → plan \"…\" → run --worker opencode → status → vérif fichier → restauration`\n\n→ écrire `TEST-PLAN.md` maintenant ?",
+    "attempts": 1,
+    "created": "2026-09-25T12:00:12"
+  },
+  {
+    "id": 6,
+    "title": "Créer le fichier TEST-PLAN.md",
+    "worker": "opencode",
+    "detail": "Créer le fichier TEST-PLAN.md à la racine du répertoire de travail (/Users/demo/Documents/9AM9AM-TEAM) avec un titre H1 « Plan de test », puis les sections : Objectif, Périmètre, Prérequis, Étapes, Critères de succès. Rédiger en français, sans donnée inventée ni chemin système absolu dans le contenu du fichier.",
+    "status": "done",
+    "result": "[session ses_f278ebfbdffeP9r2muRxH5b9Y5]\n`TEST-PLAN.md` créé à la racine : H1 « Plan de test » + Objectif, Périmètre, Prérequis, Étapes, Critères de succès. Contenu dérivé du README uniquement, aucun chemin absolu.",
+    "attempts": 1,
+    "created": "2026-09-25T12:00:12"
+  },
+  {
+    "id": 7,
+    "title": "Rédiger les étapes de test et critères de succès",
+    "worker": "opencode",
+    "detail": "Dans TEST-PLAN.md, détailler sous forme de liste numérotée les étapes du test réel (réception de la mission par le CEO, découpage en tâches, exécution par le worker opencode, création du fichier) et des critères de succès vérifiables (fichier présent, non vide, sections attendues, encodage UTF-8).",
+    "status": "done",
+    "result": "[session ses_f24669310ffe6tkRI92QsNqEmr]\nTEST-PLAN.md : ajouté « Test réel (sans `--dry-run`) » — 8 étapes numérotées (mission → plan CEO → status → run opencode → création du fichier → vérif → restauration) et « Critères de succès du test réel » (fichier présent, non vide, sections Objectif/Exécution/Verdict, UTF-8 sans BOM, état `tasks.json`, rien d'écrasé). UTF-8 vérifié.",
+    "attempts": 1,
+    "created": "2026-09-25T12:00:12"
+  },
+  {
+    "id": 8,
+    "title": "Vérifier le fichier créé",
+    "worker": "opencode",
+    "detail": "Relire TEST-PLAN.md : vérifier qu'il existe, qu'il n'est pas vide, que toutes les sections sont présentes et que le Markdown est valide. Signaler explicitement toute anomalie ou section manquante au lieu de la corriger silencieusement.",
+    "status": "done",
+    "result": "[session ses_f24656c8effeG0h2C7yYVYoFTY]\n**Vérification TEST-PLAN.md** (`/Users/demo/Documents/9AM9AM-TEAM/TEST-PLAN.md`)\n\n- **Existe / non vide** : OK — 91 lignes, 4657 octets, UTF-8 sans BOM, LF final, pas de CR.\n- **Sections requises** (Objectif, Périmètre, Prérequis, Étapes, Critères de succès) : **toutes présentes**, plus « Test réel (sans `--dry-run`) » et « Critères de succès du test réel ».\n- **Markdown valide** : 1 seul H1, 7 H2, aucun saut de niveau, titres entourés de lignes vides, listes numérotées 1→10 et 1→8 continues, guillemets inversés/backticks appariés, aucune tabulation ni espace final, aucun chemin absolu.\n\n**Anomalie détectée (non corrigée, comme demandé) :**\n\n1. `TEST-PLAN.md:13` — le Périmètre cite un état de cycle de vie **`pending` qui n'existe pas** dans le code : `mini_orchestrateur.py:370` utilise `\"status\": \"todo\"`. Contradiction interne avec `TEST-PLAN.md:68`, qui dit elle « les tâches créées sont en `todo` » (celui-ci est correct).\n\nAucune autre section manquante ni défaut de syntaxe. Dis-moi si tu veux que je corrige `pending` → `todo`.",
+    "attempts": 1,
+    "created": "2026-09-25T12:00:12"
+  },
+  {
+    "id": 9,
+    "title": "Vérifier l'état du répertoire de travail",
+    "worker": "opencode",
+    "detail": "Dans /Users/demo/Documents/9AM9AM-TEAM, lister le contenu du répertoire et vérifier qu'aucun fichier ARGS-TEST.md n'existe déjà. Si un fichier existe, signaler son contenu actuel sans l'écraser avant décision explicite.",
+    "status": "todo",
+    "result": "",
+    "attempts": 0,
+    "created": "2026-09-26T02:45:33"
+  },
+  {
+    "id": 10,
+    "title": "Définir le contenu de ARGS-TEST.md",
+    "worker": "opencode",
+    "detail": "Rédiger le contenu du fichier ARGS-TEST.md : un titre, une courte description de l'objectif (vérifier que les arguments transmis à l'agent sont correctement reçus et interprétés), et une section listant les arguments reçus lors de cette exécution. Ne rien inventer : si un argument n'est pas disponible, écrire explicitement « inconnu ».",
+    "status": "todo",
+    "result": "",
+    "attempts": 0,
+    "created": "2026-09-26T02:45:33"
+  },
+  {
+    "id": 11,
+    "title": "Créer le fichier ARGS-TEST.md",
+    "worker": "opencode",
+    "detail": "Créer ARGS-TEST.md à la racine de /Users/demo/Documents/9AM9AM-TEAM avec le contenu défini à l'étape précédente, en Markdown valide (encodage UTF-8, saut de ligne final).",
+    "status": "todo",
+    "result": "",
+    "attempts": 0,
+    "created": "2026-09-26T02:45:33"
+  },
+  {
+    "id": 12,
+    "title": "Vérifier le fichier créé",
+    "worker": "opencode",
+    "detail": "Relire ARGS-TEST.md et confirmer : le fichier existe à la racine, il n'est pas vide, le Markdown est bien formé, et son contenu correspond à ce qui était prévu. Signaler tout écart explicitement.",
+    "status": "todo",
+    "result": "",
+    "attempts": 0,
+    "created": "2026-09-26T02:45:33"
+  },
+  {
+    "id": 13,
+    "title": "Rapporter le résultat",
+    "worker": "opencode",
+    "detail": "Produire un court compte rendu : chemin relatif du fichier créé, taille, résultat de chaque vérification (réussi / échec), et tout problème rencontré. Aucun chemin système absolu ni secret dans la sortie.",
+    "status": "todo",
+    "result": "",
+    "attempts": 0,
+    "created": "2026-09-26T02:45:33"
+  }
+]

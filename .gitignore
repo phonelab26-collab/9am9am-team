@@ -1,0 +1,18 @@
+# État d'exécution local : jamais publié (tâches, config, journal, baux, quarantaines)
+.mini-orch/
+
+# Logiciel Mac compilé : régénéré par app/build.sh (artefact, pas une source)
+9AM9AM-TEAM.app/
+
+# Caches et fichiers macOS
+__pycache__/
+*.pyc
+.DS_Store
+
+# Rapport de couverture local (python -m coverage)
+.coverage
+.coverage.*
+
+# Journaux et pid locaux (ex. gui.log, gui.pid)
+*.log
+*.pid

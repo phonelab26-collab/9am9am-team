@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>9AM9AM-TEAM</title>
+<meta name="api-token" content="{{TOKEN}}">
+<link rel="stylesheet" href="app.css">
+<script src="markdown.js" defer></script>
+<script src="app.js" defer></script>
+</head>
+<body>
+<div class="gnome-topbar" aria-hidden="false">
+  <span class="top-left"><button id="activities" type="button" class="top-btn">Activités</button></span>
+  <span class="top-title">9AM9AM-TEAM <span id="mode" class="mode"></span></span>
+  <span id="usage" class="top-usage" role="status" title="Usage de ton abonnement Claude (claude /usage), actualisé toutes les 2 min">Claude : usage…</span>
+  <span id="clock" class="top-clock" title="Horloge du bureau">--:--</span>
+  <span class="top-right">FR · <span id="net-state">●</span></span>
+</div>
+<div class="desktop">
+<nav class="dock" aria-label="Dock">
+  <button type="button" data-goto="chat" title="Conversation avec le CEO">CC</button>
+  <button type="button" data-goto="tasks" title="Tâches">✓</button>
+  <button type="button" data-goto="journal" title="Terminal / journal">›_</button>
+  <button type="button" data-goto="settings" title="Paramètres">⚙</button>
+</nav>
+<div class="shell">
+  <header class="bar">
+    <div class="brand">
+      <h1>9AM9AM-TEAM</h1>
+      <span class="sub">Claude Code (CEO) + agents</span>
+    </div>
+    <button id="quit" type="button" title="Arrête l'interface (la tâche en cours est interrompue proprement)">Quitter</button>
+  </header>
+
+  <div class="layout">
+    <main class="chat window" id="card-chat" aria-label="Conversation avec le CEO" tabindex="-1">
+      <div id="thread" class="thread" role="log" aria-live="polite" tabindex="0">
+        <div id="welcome" class="welcome">
+          <div class="avatar big" aria-hidden="true">CC</div>
+          <h2>Bonjour, je suis Claude Code.</h2>
+          <p>Je suis le CEO de cette équipe. Pose-moi une question, ou demande-moi de faire quelque chose :
+             je réponds moi-même quand je peux, sinon je confie le travail à mes agents, je vérifie
+             leurs résultats et je te fais un rapport.</p>
+          <div id="chips" class="chips">
+            <button type="button" class="chip">Explique-moi comment fonctionne cette équipe</button>
+            <button type="button" class="chip">Crée un fichier HELLO.md avec une phrase de bienvenue</button>
+            <button type="button" class="chip">Que peux-tu faire pour moi ?</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="typing" class="typing" role="status" hidden>
+        <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span id="typing-text"></span>
+      </div>
+      <p id="banner" class="banner" role="alert" hidden></p>
+
+      <div id="ws" class="ws" aria-label="Dossier de travail">
+        <div class="ws-tabs" role="tablist" aria-label="Onglets du prompt">
+          <button type="button" id="ws-tab" class="ws-tab active" role="tab" aria-selected="true" aria-controls="ws-panel" title="Dossier sur lequel on travaille (racine du projet)">📁 <span id="ws-root">…</span></button>
+          <button type="button" id="ws-browse" class="ws-browse" title="Choisir le dossier de travail (sélecteur du Mac) : le CEO et les agents travailleront dedans">📂 Parcourir…</button>
+          <span id="ws-count" class="ws-count" title="Fichiers joints au prochain message"></span>
+        </div>
+        <div id="ws-panel" class="ws-panel" role="tabpanel" aria-labelledby="ws-tab">
+          <div class="ws-bar">
+            <button type="button" id="ws-add-file" class="primary ws-plus" title="Joindre des fichiers au prochain message (choix multiples)" aria-label="Joindre des fichiers">+</button>
+            <button type="button" id="ws-clear" title="Retirer tous les fichiers joints">Vider</button>
+          </div>
+          <input type="file" id="ws-pick" multiple hidden>
+          <div id="ws-files" class="ws-files" aria-label="Fichiers joints"></div>
+          <div id="ws-drop" class="ws-drop" aria-label="Dépose des fichiers ici">… ou dépose des fichiers ici 📥</div>
+          <p id="ws-note" class="ws-note muted" hidden></p>
+        </div>
+      </div>
+
+      <form id="composer" class="composer" autocomplete="off">
+        <textarea id="input" rows="1" spellcheck="true" aria-label="Ton message pour le CEO"
+                  placeholder="Écris à Claude Code…"></textarea>
+        <button id="send" class="primary" type="submit">Envoyer</button>
+        <button id="stop" class="danger" type="button" hidden title="Interrompt le travail en cours">Arrêter</button>
+      </form>
+      <p class="hint">Entrée pour envoyer · Maj+Entrée pour un retour à la ligne</p>
+    </main>
+
+    <aside class="side" aria-label="Équipe et tâches">
+      <section class="card window" aria-labelledby="h-team">
+        <h2 id="h-team">Équipe</h2>
+        <div id="team" class="team"></div>
+      </section>
+
+      <section class="card" id="card-tasks" aria-labelledby="h-tasks" tabindex="-1">
+        <h2 id="h-tasks">Tâches</h2>
+        <p id="problem" class="problem" hidden></p>
+        <ol id="tasks" class="tasks"></ol>
+        <p id="no-tasks" class="muted" hidden>Aucune tâche pour l'instant.</p>
+        <div class="side-actions">
+          <button id="retry" type="button" title="Remet en file les tâches bloquées ou échouées">Réessayer bloquées</button>
+          <button id="selftest" type="button" title="Lance la suite de tests (≈ 650 tests, ~2 min, aucun vrai CLI)">Selftest</button>
+        </div>
+      </section>
+
+      <details class="card terminal" id="card-journal">
+        <summary>Terminal — journal technique</summary>
+        <div id="journal" class="journal" tabindex="0"></div>
+      </details>
+
+      <details class="card" id="card-settings" open>
+        <summary>Paramètres — connexion, models, agents</summary>
+        <div class="settings">
+          <h3>Apparence</h3>
+          <div class="row">
+            <label for="ui_color">Couleur de l'interface</label>
+            <input id="ui_color" type="color" value="#e95420" spellcheck="false"
+                   title="Teinte des boutons, accents et bulles — enregistrée dans config.json">
+          </div>
+          <div class="swatches" role="group" aria-label="Couleurs rapides">
+            <button type="button" class="swatch" data-color="#ffb000" title="Ambre — CRT des années 80" aria-label="Ambre"></button>
+            <button type="button" class="swatch" data-color="#3ee07f" title="Vert phosphore" aria-label="Vert phosphore"></button>
+            <button type="button" class="swatch" data-color="#40d8ff" title="Cyan" aria-label="Cyan"></button>
+            <button type="button" class="swatch" data-color="#ff6fae" title="Rose" aria-label="Rose"></button>
+            <button type="button" class="swatch" data-color="#b18cff" title="Violet" aria-label="Violet"></button>
+            <button type="button" class="swatch" data-color="#e95420" title="Orange 9AM — le défaut" aria-label="Orange"></button>
+          </div>
+          <p class="muted">La teinte choisie peint les boutons, les bordures actives et les bulles.</p>
+
+          <h3>Connexion Claude Code (CEO)</h3>
+          <p id="auth-state" class="muted">Vérification…</p>
+          <div class="row">
+            <button id="auth-refresh" type="button">Vérifier</button>
+            <button id="auth-logout" type="button">Se déconnecter</button>
+          </div>
+          <label for="auth-email">Changer de compte : l'email du compte à utiliser (ouvre le navigateur)</label>
+          <div class="row">
+            <input id="auth-email" type="email" autocomplete="email" spellcheck="false" placeholder="toi@exemple.com">
+            <button id="auth-switch" type="button" title="Déconnecte le compte actuel, puis ouvre le navigateur pour te connecter avec cet email">Changer de compte</button>
+            <button id="auth-switch-cancel" type="button" hidden>Annuler</button>
+          </div>
+          <p id="auth-switch-state" class="muted" role="status"></p>
+          <p class="muted">« Changer de compte » déconnecte le compte actuel, puis ouvre le navigateur pour valider
+             la connexion (pas pendant un travail). Aucun mot de passe ni clé n'est demandé ici.</p>
+          <div class="row">
+            <button id="auth-login" type="button" title="Copie la commande de connexion">Copier la commande</button>
+          </div>
+          <p class="muted">Pas de navigateur qui s'ouvre ? Copie la commande et colle-la dans ton Terminal.</p>
+
+          <h3>Model de chaque agent</h3>
+          <label for="ceo_mode">Où travaille Claude Code (CEO)</label>
+          <div class="row mode-switch" role="group" aria-label="Mode du CEO">
+            <button id="mode-local" type="button" title="Le CEO tourne sur ton Mac">💻 Local</button>
+            <button id="mode-cloud" type="button" title="Le CEO envoie à une session distante claude.ai">☁️ Cloud</button>
+          </div>
+          <select id="ceo_mode" hidden>
+            <option value="local">💻 Local — sur ton Mac</option>
+            <option value="cloud">☁️ Cloud — session distante claude.ai</option>
+          </select>
+          <p class="muted" id="ceo-mode-hint">Local : le CEO tourne ici. Cloud : il envoie à une session distante existante.</p>
+          <p class="muted warn" id="cloud-readonly-warning" hidden>⚠️ En mode Cloud, la restriction « lecture seule »
+             du CEO n'est pas appliquée : la session distante agit avec ses propres droits.
+             En local, le CEO ne peut que lire tes fichiers.</p>
+          <div id="cloud-repos" hidden>
+            <div class="row">
+              <label for="repo-search" class="muted">Dépôts GitHub associés à ton Claude</label>
+              <button id="repos-refresh" type="button" title="Recharger la liste des dépôts">↻ Actualiser</button>
+            </div>
+            <input id="repo-search" autocomplete="off" spellcheck="false" placeholder="Filtrer les dépôts…">
+            <div id="repo-list" class="repo-list" role="listbox" aria-label="Dépôts GitHub"></div>
+            <p class="muted" id="repos-note"></p>
+          </div>
+          <label for="ceo_cloud_session">Session cloud (id session_... ou URL claude.ai/code/...)</label>
+          <input id="ceo_cloud_session" autocomplete="off" spellcheck="false" placeholder="requis seulement en mode Cloud">
+          <label for="ceo_model_pick">Model de Claude Code (CEO)</label>
+          <select id="ceo_model_pick" title="Alias : toujours la dernière version du modèle"></select>
+          <input id="ceo_model" autocomplete="off" spellcheck="false" hidden
+                 placeholder="nom complet, ex. claude-sonnet-5-5">
+          <label for="verify_cmd">Vérification de CE dossier (tests, build) — lancée après chaque travail, avant l'audit de Claude</label>
+          <input id="verify_cmd" autocomplete="off" spellcheck="false"
+                 placeholder="vide = commande détectée automatiquement · « off » = aucune">
+          <p id="verify-hint" class="muted"></p>
+          <button id="verify-approve" type="button" hidden></button>
+          <label for="escalation">Reprise par Claude Code (payant) quand le CEO refuse un travail</label>
+          <select id="escalation" title="Jamais sur une simple panne ou un délai dépassé d'un model gratuit">
+            <option value="on">autorisée — 2 tâches max par demande</option>
+            <option value="off">désactivée — les agents gratuits seulement</option>
+          </select>
+          <label for="ceo_effort">Effort de Claude Code (CEO)</label>
+          <select id="ceo_effort" class="effort" title="Niveau de raisonnement du CEO (claude --effort)"></select>
+          <label for="opencode_model_pick">Model qui travaille (opencode) — models gratuits scannés à chaque ouverture</label>
+          <div class="row">
+            <select id="opencode_model_pick" title="Gratuits d'après leur nom dans le catalogue opencode (« free », ou connus comme big-pickle)"></select>
+            <button id="free-models-rescan" type="button" title="Relire le catalogue opencode maintenant">↻ Rescanner</button>
+          </div>
+          <input id="opencode_model" list="models" autocomplete="off" spellcheck="false" hidden
+                 placeholder="provider/model, ex. opencode/big-pickle">
+          <datalist id="models"></datalist>
+          <p id="free-models-note" class="muted" role="status"></p>
+          <label for="autoclaw_model">Model autoclaw (indicatif — se règle aussi dans l'outil)</label>
+          <input id="autoclaw_model" list="models" autocomplete="off" spellcheck="false" placeholder="vide = défaut de l'outil">
+          <label for="cline_model_pick">Model cline (indicatif — se règle dans Cline)</label>
+          <select id="cline_model_pick" title="Les models notés dans la liste juste en dessous"></select>
+          <input id="cline_model" list="models" autocomplete="off" spellcheck="false" hidden
+                 placeholder="nom du model, ex. stealth/space-bunny-alpha">
+          <label for="cline_models">Models gratuits de Cline en ce moment (un par ligne, 10 au plus)</label>
+          <textarea id="cline_models" rows="4" spellcheck="false" placeholder="stealth/space-bunny-alpha"></textarea>
+          <p class="muted">Cline ne publie pas sa liste : note ici ses 3 ou 4 models du moment, ils remplissent
+             le menu au-dessus. Ça ne change pas le model que Cline utilise (il se règle dans Cline).</p>
+          <label for="autoclaw_effort">Effort autoclaw (donné à sa commande dans $ORCH_EFFORT)</label>
+          <select id="autoclaw_effort" class="effort"></select>
+          <label for="cline_effort">Effort cline (donné à sa commande dans $ORCH_EFFORT)</label>
+          <select id="cline_effort" class="effort"></select>
+          <label for="autoclaw_cmd">Commande autoclaw</label>
+          <input id="autoclaw_cmd" autocomplete="off" spellcheck="false" placeholder="(optionnel)">
+          <label for="cline_cmd">Commande cline</label>
+          <input id="cline_cmd" autocomplete="off" spellcheck="false" placeholder="(optionnel)">
+
+          <h3>Options opencode (comme le CLI)</h3>
+          <label for="opencode_agent">Agent opencode (--agent)</label>
+          <input id="opencode_agent" autocomplete="off" spellcheck="false" placeholder="vide = build (défaut)">
+          <label for="opencode_variant">Effort opencode (variante du model : ses noms dépendent du model)</label>
+          <input id="opencode_variant" list="opencode_variants" autocomplete="off" spellcheck="false"
+                 placeholder="vide = défaut · ex. low, medium, high, max">
+          <datalist id="opencode_variants">
+            <option value="minimal"></option><option value="low"></option><option value="medium"></option>
+            <option value="high"></option><option value="max"></option>
+          </datalist>
+
+          <h3>Ajouter des models</h3>
+          <label for="custom_models">Un « provider/model » par ligne</label>
+          <textarea id="custom_models" rows="3" spellcheck="false" placeholder="openrouter/mon-model:free&#10;ma-sonde/mon-modele"></textarea>
+
+          <h3>Ajouter des agents / API</h3>
+          <div id="custom-agents" class="custom-agents"></div>
+          <label for="ca-name">Nom du nouvel agent</label>
+          <input id="ca-name" autocomplete="off" spellcheck="false" placeholder="mon-api">
+          <label for="ca-cmd">Commande (sans clé API — utilise une variable d'env)</label>
+          <input id="ca-cmd" autocomplete="off" spellcheck="false" placeholder="mon-cli run --env MA_CLE">
+          <label for="ca-model">Model de cet agent (optionnel)</label>
+          <input id="ca-model" list="models" autocomplete="off" spellcheck="false" placeholder="provider/model">
+          <label for="ca-effort">Effort de cet agent (donné à sa commande dans $ORCH_EFFORT)</label>
+          <select id="ca-effort" class="effort"></select>
+          <div class="row">
+            <button id="ca-add" type="button">Ajouter l'agent</button>
+          </div>
+          <p class="muted">Les clés API ne se collent jamais ici : lance
+             « opencode providers login » dans ton Terminal, ou mets ta clé dans une
+             variable d'environnement. Workers actifs : <span id="workers">…</span>.</p>
+        </div>
+        <p class="muted">Sauvegardé automatiquement, pris en compte au message suivant.</p>
+      </details>
+    </aside>
+  </div>
+</div>
+</div>
+</body>
+</html>
