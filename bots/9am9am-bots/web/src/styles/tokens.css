@@ -1,0 +1,134 @@
+/* Design tokens: light theme. */
+:root {
+  --color-bg-chrome: #FCFCFC;
+  --color-bg-sidebar: #F5F5F5;
+  --color-bg-pane: #FFFFFF;
+  --color-bg-active: #1C1C1C14;
+  --color-bg-tertiary: #1C1C1C0F;
+  --color-bg-scrim: #00000080;
+  --color-text-primary: #1C1C1C;
+  --color-text-secondary: #1C1C1CAD;
+  --color-text-tertiary: #1C1C1C8F;
+  --color-text-quaternary: #1C1C1C66;
+  --color-icon-secondary: #1C1C1CA8;
+  --color-border-secondary: #1C1C1C1F;
+  --color-border-tertiary: #1C1C1C14;
+  --color-primary: #1C1C1C;
+  --color-bot-pink: #F93498;
+  --color-bot-pink-bubble: #C82779;
+  --color-bot-pink-action: #E52F8B;
+  --color-bot-blue: #1E86FC;
+  --color-bot-red: #FB2B3E;
+  --color-bot-orange: #FD690F;
+  --color-bot-yellow: #F59312;
+  --color-bot-green: #14C16F;
+  --color-bot-teal: #13B7A2;
+  --color-bot-purple: #8F59F9;
+  --color-bot-brown: #A06B39;
+  --color-bot-gray: #999999;
+  --text-xs: 12px;
+  --text-sm: 13px;
+  --text-base: 14px;
+  --text-message: 15px;
+  --text-lg: 17px;
+  --font-weight-regular: 425;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-bubble: 18px;
+  --radius-composer: 22px;
+  --radius-card: 24px;
+  --radius-full: 9999px;
+
+  /* --- font stacks and interaction states --- */
+  --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Inter, system-ui, sans-serif;
+  --font-mono-stack: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  --color-bg-hover: #1C1C1C0F;
+  --color-bg-secondary-hover: #1C1C1C1A;
+  --color-bg-secondary-active: #1C1C1C2E;
+  --color-bg-primary-hover: #363636;
+  --color-bg-elevated-hover: #F1F1F1;
+  --color-border-focus: #1E86FC;
+  --color-bg-scrim-heavy: #000000E5;
+  --color-ink: #000000;
+  --color-success: #10AB61;
+  --color-warn: #DA830E;
+  --color-danger: #E72E3B;
+  --shadow-pill: #1C1C1C14 0px 4px 12px -1px, #1C1C1C0A 0px 1px 2px;
+  --shadow-composer: #0000000D 0px 2px 8px -1px, #00000008 0px 1px 2px, #E4E4E40A 0px 0px 0px 1px;
+  --shadow-card: #1C1C1C1F 0px 0px 0px 0.5px, #1C1C1C09 0px 2px 8px;
+  --shadow-modal: #1C1C1C1A 0px 20px 32px -5px, #1C1C1C1A 0px 8px 12px -6px;
+  --bubble-ring: #FFFFFF29 0px 0.5px 0px inset, #FFFFFF29 0px -0.5px 0px inset, #1C1C1C0F 0px 0px 0px 0.5px inset;
+  --ease-out: cubic-bezier(0.2, 0, 0, 1);
+
+  /* --- semantic extras used for theming (light values; dark below) --- */
+  --color-bg-elevated: #FFFFFF;
+  --color-bg-subtle: #1C1C1C08;
+  --color-bg-primary-disabled: #1C1C1C26;
+  --color-bg-active-solid: #E9E9E9;
+  --color-border-primary: #1C1C1C3D;
+  --color-on-primary: #FCFCFC;
+  --color-bubble-agent: #1C1C1C0F;
+  --color-bubble-user: #1C1C1C;
+  --color-danger-hover: #C82532;
+  --color-danger-bg: #FB2B3E14;
+  --color-danger-text: #CD2834;
+  --color-warn-bg: #F5931217;
+  --color-warn-text: #AA6300;
+  --color-success-bg: #14C16F17;
+  --color-success-text: #00854A;
+  --shadow-popover: #1C1C1C1A 0 10px 20px -3px, #1C1C1C14 0 4px 6px -4px;
+  --bot-on-action: #FFFFFF;
+}
+
+/* ---------- dark theme. Flat: no shadows. ---------- */
+:root[data-theme='dark'] {
+  --color-bg-chrome: #121212;
+  --color-bg-sidebar: #0E0E0E;
+  --color-bg-pane: #161616;
+  --color-bg-active: #F5F5F514;
+  --color-bg-tertiary: #F5F5F50A;
+  --color-bg-scrim: #000000B2;
+  --color-text-primary: #F5F5F5;
+  --color-text-secondary: #F5F5F5A8;
+  --color-text-tertiary: #F5F5F58A;
+  --color-text-quaternary: #F5F5F561;
+  --color-icon-secondary: #F5F5F5A3;
+  --color-border-secondary: #F5F5F51A;
+  --color-border-tertiary: #F5F5F50F;
+  --color-primary: #F5F5F5;
+  --color-bg-hover: #F5F5F50F;
+  --color-bg-secondary-hover: #F5F5F514;
+  --color-bg-secondary-active: #F5F5F533;
+  --color-bg-primary-hover: #DBDBDB;
+  --color-bg-elevated-hover: #2C2C2C;
+  --color-border-focus: #1884FC;
+  --color-bg-scrim-heavy: #000000F2;
+  --color-ink: #F5F5F5;
+  --color-success: #0E9F5A;
+  --color-warn: #C8770C;
+  --color-danger: #CF2B35;
+  --shadow-pill: #F5F5F51A 0 0 0 0.5px;
+  --shadow-composer: #F5F5F51A 0 0 0 0.5px;
+  --shadow-card: #F5F5F51A 0 0 0 0.5px;
+  --shadow-modal: #000000 0 0 0 0;
+  --shadow-popover: #F5F5F51A 0 0 0 0.5px;
+  --bubble-ring: #F5F5F50F 0 0 0 0.5px inset;
+
+  --color-bg-elevated: #1F1F1F;
+  --color-bg-subtle: #F5F5F505;
+  --color-bg-primary-disabled: #F5F5F521;
+  --color-bg-active-solid: #262626;
+  --color-border-primary: #F5F5F538;
+  --color-on-primary: #121212;
+  --color-bubble-agent: #F5F5F50F;
+  --color-bubble-user: #F5F5F52E;
+  --color-danger-hover: #F73643;
+  --color-danger-bg: #FC2C3E1F;
+  --color-danger-text: #FF6463;
+  --color-warn-bg: #F694121F;
+  --color-warn-text: #E28600;
+  --color-success-bg: #14C3701F;
+  --color-success-text: #00BA69;
+}

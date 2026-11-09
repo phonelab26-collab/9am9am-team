@@ -1,0 +1,26 @@
+{
+  "name": "9am9am-bots",
+  "version": "0.1.0",
+  "private": true,
+  "description": "9AM9AM Bots — self-hosted AI teammates with computers, connected apps, memory and voice. Based on grokbot-clone (MIT).",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/phonelab26-collab/9am9am-team.git",
+    "directory": "bots/9am9am-bots"
+  },
+  "workspaces": ["server", "web"],
+  "scripts": {
+    "dev": "npm run dev -w server & npm run dev -w web",
+    "build": "npm run build -w web && npm run build -w server",
+    "start": "npm run start -w server",
+    "typecheck": "npm run typecheck -w server && npm run typecheck -w web",
+    "smoke": "bash scripts/smoke.sh"
+  },
+  "engines": { "node": ">=22.22" },
+  "allowScripts": {
+    "better-sqlite3": true,
+    "esbuild": true,
+    "fsevents": true
+  }
+}

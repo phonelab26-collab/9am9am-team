@@ -1,0 +1,17 @@
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+*.db
+*.db-*
+data/
+.DS_Store
+
+# Local-only material (not part of the open-source repo)
+design/
+docs/research/
+docs/INTERNAL-*.md
+docs/SPEC.md
+web/screenshots/
+tests/out/

@@ -17,6 +17,22 @@ cd 9am9am-team
 - Menu Terminal : `./9AM9AM-TEAM.command menu`.
 - Vérifier l'installation : `./9AM9AM-TEAM.command selftest` (aucun vrai CLI appelé).
 
+## Bots (9AM9AM Bots)
+
+Le sous-dossier [`bots/9am9am-bots/`](bots/9am9am-bots/) contient **9AM9AM Bots**,
+une plateforme auto-hébergée de coéquipiers IA (ordinateur, apps connectées, mémoire, voix),
+adaptée de [grokbot-clone](https://github.com/nickvasilescu/grokbot-clone) (MIT).
+
+```bash
+cd bots/9am9am-bots
+npm ci
+cp .env.example .env   # renseigner XAI_API_KEY, COMPOSIO_API_KEY, ORGO_API_KEY, ORGO_WORKSPACE_ID, SESSION_SECRET
+npm run dev
+```
+
+Vérification sans clés : `npm run typecheck && npm run smoke`.
+Voir [`bots/9am9am-bots/README.md`](bots/9am9am-bots/README.md).
+
 ## L'interface (navigateur, ou logiciel `9AM9AM-TEAM.app`)
 
 1. Écris un **Objectif** (ex. « préparer la démo de vendredi »).
@@ -356,5 +372,7 @@ MIT — voir [`LICENSE`](LICENSE).
   Dans celui du logiciel seulement : `trust.json` (dossiers d'état créés et processus lancés
   par ce programme) et les accords de vérification (`verify_approvals` de `config.json`).
 - `9AM9AM-TEAM.command` — lanceur double-clic macOS.
+- `bots/9am9am-bots/` — **9AM9AM Bots**, la plateforme de coéquipiers IA (Node/React,
+  sous-projet autonome ; voir son README et son `package.json`).
 - Tk a été retiré : ne jamais le réintroduire (`orch/gui.py` a été supprimé, un test
   l'interdit) ; côté page, `innerHTML` et consorts sont interdits par un autre test.

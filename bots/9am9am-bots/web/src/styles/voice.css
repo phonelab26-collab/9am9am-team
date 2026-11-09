@@ -1,0 +1,89 @@
+/* ---------- voice call bar (sits above the composer) ---------- */
+.vcall {
+  max-width: 960px; margin: 0 auto 8px; width: calc(100% - 32px);
+  background: #1C1C1C; color: #FFFFFF; border-radius: var(--radius-card);
+  box-shadow: var(--shadow-modal); padding: 10px 10px 10px 14px;
+  animation: rise 0.22s var(--ease-out);
+  flex-shrink: 0;
+}
+.vcall__main { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.vcall__avatar {
+  --out: 0; --mic: 0;
+  position: relative; display: inline-flex; flex-shrink: 0; width: 36px; height: 36px;
+  transform: scale(calc(1 + var(--out) * 0.16)); transition: transform 60ms linear;
+}
+.vcall__halo {
+  position: absolute; inset: -7px; border-radius: 50%;
+  background: radial-gradient(circle, var(--bot-fill, #FFF) 0%, transparent 70%);
+  opacity: calc(var(--out) * 0.9); transform: scale(calc(0.9 + var(--out) * 0.5)); pointer-events: none;
+}
+.vcall.is-connecting .vcall__avatar { animation: breathe 1.4s ease-in-out infinite; }
+.vcall.is-listening .vcall__avatar::after {
+  content: ''; position: absolute; inset: -5px; border-radius: 50%;
+  border: 2px solid #FFFFFF; opacity: calc(0.25 + var(--mic) * 0.75); pointer-events: none;
+}
+.vcall.is-working:not(.is-speaking) .vcall__avatar { animation: bob 1.6s ease-in-out infinite; }
+.vcall__info { flex: 1 1 auto; min-width: 0; }
+.vcall__title { display: flex; align-items: baseline; gap: 8px; font-size: 14px; line-height: 18px; font-weight: var(--font-weight-semibold); }
+.vcall__name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.vcall__time { font-size: 12px; font-weight: var(--font-weight-regular); color: #FFFFFF8F; font-variant-numeric: tabular-nums; }
+.vcall__status { font-size: 12px; line-height: 16px; color: #FFFFFFAD; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.vcall.is-error .vcall__status { color: #FF8A93; white-space: normal; }
+.vcall__task { color: #FFFFFF73; }
+.vcall__shimmer {
+  color: transparent;
+  background: linear-gradient(90deg, #FFFFFF8F 0%, #FFFFFF8F 35%, #FFFFFF 50%, #FFFFFF8F 65%, #FFFFFF8F 100%);
+  background-size: 250% 100%; -webkit-background-clip: text; background-clip: text;
+  animation: shimmer 1.4s linear infinite;
+}
+.vcall__shimmer .vcall__task { color: transparent; }
+.vcall__actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.vcall__btn {
+  display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: var(--radius-full);
+  background: #FFFFFF1F; color: #FFFFFF; font-size: 13px; transition: background 120ms;
+}
+.vcall__btn:hover { background: #FFFFFF33; }
+.vcall__btn.is-on { background: #FFFFFF; color: #1C1C1C; }
+.vcall__btn--end { background: var(--color-danger); width: 44px; }
+.vcall__btn--end:hover { background: #C82532; }
+.vcall__captions {
+  display: flex; flex-direction: column; gap: 2px; width: 100%; text-align: left; margin-top: 8px; padding: 8px 10px;
+  border-radius: 14px; background: #FFFFFF0F; font-size: 13px; line-height: 18px; cursor: pointer;
+}
+.vcall__captions:hover { background: #FFFFFF17; }
+.vcall__caption { display: block; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.vcall__caption.is-user { color: #FFFFFF99; }
+.vcall__caption.is-assistant { color: #FFFFFF; }
+.vcall__caption.is-partial { opacity: 0.8; }
+.vcall__caption.is-empty { color: #FFFFFF73; }
+.vcall__log {
+  margin-top: 8px; padding: 8px 10px; border-radius: 14px; background: #FFFFFF0F; max-height: 220px; overflow-y: auto;
+  font-size: 13px; line-height: 18px; display: flex; flex-direction: column; gap: 6px;
+}
+.vcall__line b { font-weight: var(--font-weight-semibold); margin-right: 4px; }
+.vcall__line.is-user { color: #FFFFFFB3; }
+.vcall__line.is-empty { color: #FFFFFF73; }
+.vcall__toggle { align-self: flex-start; font-size: 12px; color: #FFFFFF8F; text-decoration: underline; }
+
+/* ---------- composer: dictation + call button states ---------- */
+.composer__btn.is-recording { background: var(--color-danger); color: #FFFFFF; animation: breathe 1.2s ease-in-out infinite; }
+.composer__btn.is-recording > * { opacity: 1 !important; }
+.composer__btn.is-transcribing { animation: breathe 0.9s ease-in-out infinite; }
+.composer__cta.is-in-call { background: var(--color-danger); }
+.composer__cta.is-in-call:hover:not(:disabled) { background: #C82532; }
+
+/* ---------- details panel: voice settings ---------- */
+.mini-select--native { position: relative; cursor: pointer; }
+.mini-select--native:hover { background: var(--color-bg-hover); }
+.mini-select--native select { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; font-size: 13px; }
+.mini-select--native:focus-within { box-shadow: 0 0 0 2px var(--color-border-focus); }
+.voice-setting__right { display: inline-flex; align-items: center; gap: 6px; }
+.voice-preview {
+  display: inline-flex; align-items: center; justify-content: center; height: 24px; padding: 0 8px; border-radius: 8px;
+  border: 1px solid #1C1C1C0F; font-size: 12px; color: var(--color-text-secondary);
+}
+.voice-preview:hover:not(:disabled) { background: var(--color-bg-hover); }
+.voice-preview:disabled { opacity: 0.6; }
+.panel-row--call { gap: 8px; color: var(--color-ink); font-size: 13px; }
+.panel-row--call.is-active { color: var(--color-danger); }
+.voice-error { padding: 4px 12px 8px; font-size: 12px; color: var(--color-danger); }

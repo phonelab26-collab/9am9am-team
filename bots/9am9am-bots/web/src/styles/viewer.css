@@ -1,0 +1,25 @@
+/* ---------- computer viewer (fullscreen stage) ---------- */
+.viewer { position: fixed; inset: 0; z-index: 200; display: flex; flex-direction: column; align-items: center; color: #FFFFFF; }
+.viewer__scrim { position: absolute; inset: 0; background: var(--color-bg-scrim-heavy); animation: fade 160ms ease-out; }
+.viewer__top { position: relative; display: flex; align-items: center; justify-content: space-between; width: 100%; height: 60px; padding: 0 16px; flex-shrink: 0; }
+.viewer__title { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 500; line-height: 20px; }
+.viewer__status { font-weight: 400; color: #FFFFFF99; font-size: 13px; }
+.viewer__close { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; background: #FFFFFF1A; }
+.viewer__close:hover { background: #FFFFFF2E; }
+.viewer__stage { position: relative; flex: 1 1 0; min-height: 0; width: 100%; padding: 0 24px; display: flex; align-items: center; justify-content: center; }
+.viewer__screen { width: 100%; height: 100%; border-radius: 12px; overflow: hidden; }
+.viewer__screen > div { background: transparent !important; }
+.viewer__screen canvas { border-radius: 10px; box-shadow: 0 22px 70px 4px #00000059, 0 0 0 0.5px #FFFFFF26; cursor: default !important; }
+.viewer__screen.is-control canvas { box-shadow: 0 22px 70px 4px #00000059, 0 0 0 2px #1E86FC; }
+.viewer__overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; font-size: 14px; color: #FFFFFFCC; }
+.viewer__sleep-face { display: flex; align-items: center; justify-content: center; gap: 10px; width: 64px; height: 64px; border-radius: 50%; background: #FFFFFF26; }
+.viewer__sleep-face i { width: 13px; height: 4px; border-radius: 2px; background: #E9E9E9; }
+.viewer__err { font-size: 12px; color: #FFFFFF80; max-width: 420px; text-align: center; }
+.viewer__bar {
+  position: relative; display: flex; align-items: center; gap: 16px; margin: 16px 0 20px; padding: 6px 6px 6px 18px; flex-shrink: 0;
+  border-radius: var(--radius-full); background: #2A2A2AF2; box-shadow: 0 10px 30px #00000066, 0 0 0 0.5px #FFFFFF1F;
+  font-size: 14px; line-height: 20px;
+}
+.viewer__bar-text { color: #FFFFFFB3; display: inline-flex; align-items: center; gap: 4px; }
+.viewer__bar-text b { color: #FFFFFF; font-weight: 500; }
+.viewer__live-dot { width: 8px; height: 8px; border-radius: 50%; background: #28C840; margin-right: 4px; animation: breathe 1.6s ease-in-out infinite; }

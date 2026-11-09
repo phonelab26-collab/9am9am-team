@@ -1,0 +1,53 @@
+/* ---------- transcript cards (screen 02 draft card language) ---------- */
+.card {
+  width: 414px; max-width: 100%; background: var(--color-bg-pane); border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card); display: flex; flex-direction: column; overflow: clip;
+}
+.card__head { display: flex; align-items: flex-start; gap: 10px; padding: 16px 16px 4px; }
+.card__titles { display: flex; flex-direction: column; flex: 1 1 0; min-width: 0; padding: 2px 0; }
+.card__title { font-size: 14px; font-weight: 500; line-height: 20px; letter-spacing: 0.14px; color: var(--color-ink); }
+.card__sub { font-size: 14px; line-height: 20px; letter-spacing: 0.14px; color: var(--color-text-secondary); }
+.card__body { padding: 8px 16px 0; font-size: 14px; line-height: 20px; letter-spacing: 0.14px; color: var(--color-ink); white-space: pre-wrap; overflow-wrap: anywhere; }
+.card__actions { display: flex; gap: 8px; padding: 14px 16px 16px; }
+.card__actions .btn { flex: 1 1 0; padding: 8px 10px; }
+.card__outcome { display: flex; align-items: center; gap: 6px; padding: 12px 16px 16px; font-size: 13px; line-height: 18px; letter-spacing: 0.195px; color: var(--color-text-tertiary); }
+.card__error { padding: 0 16px 12px; font-size: 13px; line-height: 18px; color: var(--color-danger-text); }
+.card.is-resolved .card__head { padding-bottom: 0; }
+
+/* question card (screen 01) */
+.question-card { width: 560px; box-shadow: var(--color-border-tertiary) 0 0 0 1px inset; }
+.question-card__head { display: flex; flex-direction: column; gap: 2px; padding: 14px 16px 4px; }
+.question-card__q { font-size: 15px; font-weight: 600; line-height: 22px; letter-spacing: 0.15px; color: var(--color-text-primary); }
+.question-card__hint { font-size: 14px; line-height: 20px; letter-spacing: 0.14px; color: var(--color-text-tertiary); }
+.question-card__options { display: flex; flex-direction: column; gap: 1px; padding: 8px; }
+.question-option { display: flex; align-items: flex-start; gap: 4px; padding: 8px; border-radius: 12px; width: 100%; text-align: left; }
+.question-option:hover:not(:disabled) { background: var(--color-bg-hover); }
+.question-option__key {
+  display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; flex-shrink: 0; border-radius: 8px;
+  background: var(--color-bg-tertiary); border: 0.5px solid var(--color-border-tertiary);
+  font-size: 12px; font-weight: 500; line-height: 16px; letter-spacing: 0.12px; color: var(--color-text-secondary);
+}
+.question-option__label { padding: 2px 6px 0; font-size: 14px; line-height: 20px; letter-spacing: 0.14px; color: var(--color-text-primary); }
+.question-option:hover:not(:disabled) .question-option__key { background: var(--color-primary); color: var(--color-on-primary); border-color: transparent; }
+.question-card.is-resolved .question-card__q, .question-card.is-resolved .question-card__hint { color: var(--color-text-tertiary); }
+.question-card.is-resolved .question-option__key, .question-card.is-resolved .question-option__label { color: var(--color-text-quaternary); }
+.question-card.is-resolved .question-option.is-chosen .question-option__label { color: var(--color-text-primary); }
+.question-card.is-resolved .question-option.is-chosen .question-option__key { background: var(--bot-action, var(--color-primary)); color: var(--bot-on-action, #FFFFFF); border-color: transparent; }
+.question-card__foot { display: flex; justify-content: flex-end; padding: 0 12px 10px; margin-top: -4px; }
+
+/* draft card (screen 02) */
+.draft-card__head { display: flex; align-items: flex-start; gap: 10px; padding: 16px 16px 4px; }
+.draft-card__tile { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 8px; background: var(--color-primary); flex-shrink: 0; }
+.draft-card__titles { display: flex; flex-direction: column; flex: 1 1 0; padding: 2px 0; }
+.draft-card__channel { font-size: 14px; font-weight: 500; line-height: 20px; letter-spacing: 0.14px; color: var(--color-ink); }
+.draft-card__from { font-size: 14px; line-height: 20px; letter-spacing: 0.14px; color: var(--color-text-secondary); }
+.draft-card__copy { display: flex; align-items: center; justify-content: center; width: 20px; height: 44px; border-radius: 6px; }
+.draft-card__copy:hover { background: var(--color-bg-hover); }
+.draft-card__content { display: flex; flex-direction: column; padding: 12px 16px 14px; }
+.draft-card__to { display: flex; align-items: center; gap: 8px; padding: 10px 0; border-top: 1px solid var(--color-border-tertiary); border-bottom: 1px solid var(--color-border-tertiary); }
+.draft-card__to-label { font-size: 14px; line-height: 20px; color: var(--color-text-secondary); }
+.draft-card__to-avatar { display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; background: #2F3336; color: #FFFFFF; font-size: 11px; font-weight: 600; line-height: 12px; box-shadow: #1C1C1C14 0 0 0 0.5px inset; }
+.draft-card__to-name { font-size: 14px; font-weight: 600; line-height: 20px; letter-spacing: 0.14px; color: var(--color-ink); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.draft-card__subject { padding-top: 12px; font-size: 14px; font-weight: 600; line-height: 20px; }
+.draft-card__text { padding-top: 12px; font-size: 14px; line-height: 20px; letter-spacing: 0.14px; color: var(--color-ink); white-space: pre-wrap; overflow-wrap: anywhere; }
+.draft-card__actions { display: flex; gap: 8px; padding: 10px 16px 16px; }
