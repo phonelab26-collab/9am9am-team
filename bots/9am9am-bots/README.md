@@ -108,6 +108,12 @@ docs/           architecture et guides d'intégration
 scripts/        smoke test
 ```
 
+## Stratégie et adéquation aux projets
+
+Une note de travail compare les capacités du bot aux projets d'Achraf
+(`~/Documents`) : quel projet servir en premier, avec quel rôle, quel risque
+et quel effort d'intégration. Voir [`docs/FIT-PROJETS.md`](docs/FIT-PROJETS.md).
+
 ## Tests
 
 ```bash
